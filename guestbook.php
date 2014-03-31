@@ -1,4 +1,7 @@
 <html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
  <body>
   <?php
   use google\appengine\api\users\User;
@@ -37,7 +40,7 @@
   strpos($_SERVER['SERVER_SOFTWARE'],'Google App Engine') !== false) {
     // Connect from App Engine.
     try{
-       $db = new pdo('mysql:unix_socket=/cloudsql/cp-300-ethan-taipei101:test1;dbname=guestbook', 'root', '');
+       $db = new pdo('mysql:unix_socket=/cloudsql/cp-300-ethan-taipei101:micloud;dbname=guestbook', 'root', '');
     }catch(PDOException $ex){
         die(json_encode(
             array('outcome' => false, 'message' => 'Unable to connect.')
@@ -49,7 +52,7 @@
   try {
     // Show existing guestbook entries.
     foreach($db->query('SELECT * from entries') as $row) {
-            echo "<div><strong>" . $row['guestName'] . "</strong> wrote <br> " . $row['content'] . "</div>";
+            echo "<div><strong>" . $row['guestName'] . "</strong> wrote <br> " . $row['CONTENT'] . "</div>";
      }
   } catch (PDOException $ex) {
     echo "An error occurred in reading or writing to guestbook.";
